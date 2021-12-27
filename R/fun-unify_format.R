@@ -1,19 +1,20 @@
 #' Unify the format of data
 #'
 #' @param raw_data unformated data frame from excel
-#'
+#' @import magrittr
+#' @import dplyr
 #' @return formated data frame
 #' @export
+
 unify_format <- function(raw_data) {
+  stopifnot(!missing(raw_data))
+  stopifnot(raw_data %>% is.data.frame())
   data_out <- raw_data %>%
     dplyr::filter(!is.na(cabin)) %>%
     unify_cabin() %>%
     add_deck_col()
   return(data_out)
 }
-
-
-
 
 
 
